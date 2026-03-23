@@ -20,7 +20,6 @@
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "pagefind": "^1.4.0",
-    "typescript": "^4.7.4"
+    "typescript": "^6.0.2"
   }
 }
-
