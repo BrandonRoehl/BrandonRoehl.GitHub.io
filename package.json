@@ -3,7 +3,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build --debug",
     "dev": "next",
     "postbuild": "pagefind --site .next/server/app --output-path out/_pagefind",
     "start": "next start"

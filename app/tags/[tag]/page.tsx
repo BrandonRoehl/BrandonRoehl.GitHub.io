@@ -6,9 +6,9 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<{ title: string }> {
-    const params = await props.params
+    const { tag } = await props.params
     return {
-        title: `Posts Tagged with “${decodeURIComponent(params.tag)}”`
+        title: `Posts Tagged with “${decodeURIComponent(tag)}”`
     }
 }
 
@@ -18,7 +18,7 @@ export async function generateStaticParams(): Promise<{ tag: string }[]> {
 }
 
 export default async function TagPage(props: Props) {
-    const params = await props.params
+    const { tag } = await props.params
     const { title } = await generateMetadata(props)
     const posts = await getPosts()
     return (
@@ -26,7 +26,7 @@ export default async function TagPage(props: Props) {
             <h1>{title}</h1>
             {posts
                 .filter(post =>
-                    post.frontMatter.tags.includes(decodeURIComponent(params.tag))
+                    post.frontMatter.tags.includes(decodeURIComponent(tag))
                 )
                 .map(post => (
                     <PostCard key={post.route} post={post} />
