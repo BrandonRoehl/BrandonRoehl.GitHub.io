@@ -11,10 +11,11 @@ author: Brandon Roehl
 
 https://developer.apple.com/documentation/swift/dictionary/subscript(_:default:)
 
->[!note]
+> [!NOTE]
+>
 > Do not use this subscript to modify dictionary values if the dictionary’s `Value` type is a class. In that case, the default value and key are not written back to the dictionary after an operation.
 
-```swift
+```swift showLineNumbers {4-11}
 struct Example {
     private var table: [String: Set<String>] = [:]
     
@@ -60,7 +61,7 @@ This results in the final print returning
 
 So let's make a small change to this and replace `Set<String>` with `NSSet`.
 
-```swift
+```swift showLineNumbers {4-11} /NSSet/
 import Foundation
 
 struct Example {
@@ -132,7 +133,7 @@ nil
 
 So how about eliminating subscript and even using a protocol on a generic
 
-```swift
+```swift showLineNumbers {19, 24}
 import Foundation
 
 protocol Initializable { init() }
@@ -171,7 +172,7 @@ returns
 ```
 
 
-```swift
+```swift showLineNumbers
 struct Value: ~Copyable {
     var string: String = ""
 }

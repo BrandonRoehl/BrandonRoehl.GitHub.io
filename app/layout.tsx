@@ -1,5 +1,5 @@
 import { Footer, Layout, Navbar, ThemeSwitch } from 'nextra-theme-blog'
-import { Search } from 'nextra/components'
+import { Search, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-blog/style.css'
 import { Metadata } from 'next'
@@ -12,6 +12,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     // <Head backgroundColor={{ dark: '#0f172a', light: '#fefce8' }} />
     return (
         <html lang="en" suppressHydrationWarning>
+            <Head />
             <body>
                 <Layout>
                     <Navbar pageMap={await getPageMap()}>
