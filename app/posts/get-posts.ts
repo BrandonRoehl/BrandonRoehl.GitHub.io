@@ -1,4 +1,5 @@
-import { Item, normalizePages } from 'nextra/normalize-pages'
+import { normalizePages } from 'nextra/normalize-pages'
+import type { Item } from 'nextra/normalize-pages'
 import { getPageMap } from 'nextra/page-map'
 
 export async function getPosts(): Promise<Item[]> {

@@ -3,8 +3,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "next build --debug",
-    "dev": "next",
+    "build": "next build",
+    "dev": "next --turbopack",
+    "rss": "node ./scripts/gen-rss.js",
     "postbuild": "pagefind --site .next/server/app --output-path out/_pagefind",
     "start": "next start"
   },
