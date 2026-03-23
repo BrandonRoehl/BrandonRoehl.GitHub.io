@@ -1,5 +1,11 @@
 ---
+title: Day & Night Privacy Policy
+date: 2018-05-25
+description: Day & Night Privacy Policy
+tags: []
+author: Brandon Roehl
 ---
+
 # Day & Night Privacy Policy
 
 The app will ask for location preferences but only uses this to determine local sunrise and sunset times. This does not need to be enabled to use the app. If location services are enabled for Day & Night it will never be sent off device.

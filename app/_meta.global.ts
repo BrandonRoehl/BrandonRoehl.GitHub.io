@@ -5,7 +5,7 @@ export default {
     posts: {
         type: 'page',
         items: {
-            // draft: { display: 'hidden' }
+            'day-and-night-privacy-policy': { display: 'hidden' }
         }
     }
 }
