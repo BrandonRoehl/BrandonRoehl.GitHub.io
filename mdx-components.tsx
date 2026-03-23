@@ -1,6 +1,5 @@
 import { useMDXComponents as getBlogMDXComponents } from 'nextra-theme-blog'
-import type { MDXComponents } from 'mdx/types'
-// import { components as MDXComponentsModified } from "@/app/components/Mdx";
+import type { MDXComponents } from 'nextra/mdx-components'
 
 const blogComponents = getBlogMDXComponents({
     // Allows customizing built-in components, e.g. to add styling.

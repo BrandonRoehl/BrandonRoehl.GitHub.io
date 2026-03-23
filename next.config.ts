@@ -1,5 +1,5 @@
 import nextra from 'nextra'
-import NextConfig from "next";
+import type { NextConfig } from "next";
 
 // Set up Nextra with its configuration
 const withNextra = nextra({
