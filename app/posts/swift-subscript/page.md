@@ -1,0 +1,201 @@
+---
+title: Swift getter and setter value semantics
+date: 2026-03-23
+description:
+  Swift getter and setter value semantics and how they work between class and
+  structure types. How can you utilize this with non copyable
+tags:
+  - Swift
+author: Brandon Roehl
+---
+
+https://developer.apple.com/documentation/swift/dictionary/subscript(_:default:)
+
+>[!note]
+> Do not use this subscript to modify dictionary values if the dictionary’s `Value` type is a class. In that case, the default value and key are not written back to the dictionary after an operation.
+
+```swift
+struct Example {
+    private var table: [String: Set<String>] = [:]
+    
+    subscript (key: String) -> Set<String> {
+        get {
+            table[key] ?? []
+        }
+        set {
+            table[key] = newValue
+        }
+    }
+}
+
+var one = Example()
+one["hello"].insert("world")
+        
+print(one["hello"])
+```
+
+Now here is a fun one I learned about subscript value semantics when it is used on a "value" type and not a class type.
+
+A couple things of note. `get` is non mutating and `set` is mutating.
+
+Apparently this was a change made in Swift 4 that I just totally missed until yesterday and then I spent way too much time digging into what and why.
+
+applying
+```diff
+-var one = Example()
++let one = Example()
+```
+Stops this from compiling. Because `.insert(_:)` is mutating. But mutating what? The Set? no the `Example` struct.
+
+Hopping over to https://godbolt.org/ makes this more obvious then. When just calling one["hello"] no assignment is made however when performing an operation that would mutate a "value type" it will call setter
+```asmarm
+bl (output.Example.subscript.setter : (Swift.String) -> Swift.Set<Swift.String>)
+```
+> _\*all testing was against **aarch64**_
+
+This results in the final print returning
+```
+["world"]
+```
+
+So let's make a small change to this and replace `Set<String>` with `NSSet`.
+
+```swift
+import Foundation
+
+struct Example {
+    private var table: [String: NSSet] = [:]
+    
+    subscript (key: String) -> NSSet {
+        get {
+            table[key] ?? NSSet()
+        }
+        set {
+            table[key] = newValue
+        }
+    }
+}
+
+var one = Example()
+one["hello"].adding("world")
+
+print(one["hello"])
+```
+
+In this case the final print returns
+```
+{(
+)}
+```
+And does not include world.
+
+And we can see this again in https://godbolt.org/ by simply recompiling this.
+
+Since `NSSet` does not inherit any value semantics `set` is not called and instead the reference that is returned is mutated and then dropped as the "ownership" of the value never moves bounds. Whereas in the first example the ownership is transferred to the caller mutated and then returned via the consuming set.
+
+Consuming set? Yes if suppressing copy the value semantics still let this happen as there is no retained ownership. However if the value doesn't suppress copy and is retained it will instead call its copy first.
+
+Before Swift 4 the top behaves like the bottom. After Swift 4 the value semantics change with automatic ownership.
+
+- Does this work with other `get` `set` properties? **Yes.**
+- How does `nonmutating set` and `mutating get` affect this? **Exactly as stated by the keywords**
+
+So how does this work with even simpler examples?
+
+```swift
+var example: [String: Set<String>] = [:]
+example["hello", default: []].insert("world")
+        
+print(example["hello"])
+```
+
+prints off
+
+```
+Optional(Set(["world"]))
+```
+
+and
+
+```swift
+var example: [String: NSMutableSet] = [:]
+example["hello", default: .init()].add("world")
+
+print(example["hello"])
+```
+
+prints off
+
+```
+nil
+```
+
+So how about eliminating subscript and even using a protocol on a generic
+
+```swift
+import Foundation
+
+protocol Initializable { init() }
+extension Set: Initializable {}
+extension NSMutableSet: Initializable {}
+
+struct Example<Value> where Value: Initializable {
+    var _value: Value?
+    var value: Value {
+        get {
+            _value ?? Value()
+        }
+        set {
+            _value = newValue
+        }
+    }
+}
+
+var one = Example<Set<String>>()
+one.value.insert("world")
+
+print(one.value)
+
+var two = Example<NSMutableSet>()
+two.value.add("world")
+
+print(two.value)
+```
+
+returns
+
+```
+["world"]
+{(
+)}
+```
+
+
+```swift
+struct Value: ~Copyable {
+    var string: String = ""
+}
+
+struct Example: ~Copyable {
+    private var _value: Value?
+    var value: Value {
+        mutating get {
+            _value.take() ?? Value()
+        }
+        set {
+            _value = consume newValue
+        }
+    }
+}
+
+var one = Example()
+one.value.string = "test"
+
+print(one.value.string)
+```
+
+prints
+
+```
+test
+```
