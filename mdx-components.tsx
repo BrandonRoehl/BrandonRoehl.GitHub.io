@@ -1,5 +1,5 @@
 import { useMDXComponents as getBlogMDXComponents } from 'nextra-theme-blog'
-import type { MDXComponents } from "mdx/types";
+import type { MDXComponents } from 'mdx/types'
 // import { components as MDXComponentsModified } from "@/app/components/Mdx";
 
 const blogComponents = getBlogMDXComponents({
