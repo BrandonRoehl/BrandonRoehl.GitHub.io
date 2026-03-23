@@ -1,4 +1,6 @@
 import { useMDXComponents as getBlogMDXComponents } from 'nextra-theme-blog'
+import type { MDXComponents } from "mdx/types";
+// import { components as MDXComponentsModified } from "@/app/components/Mdx";
 
 const blogComponents = getBlogMDXComponents({
     h1: ({ children }) => (
@@ -21,7 +23,7 @@ const blogComponents = getBlogMDXComponents({
         })}`
 })
 
-export function useMDXComponents(components) {
+export function useMDXComponents(components: MDXComponents): MDXComponents {
     return {
         ...blogComponents,
         ...components

@@ -1,5 +1,5 @@
 import nextra from 'nextra'
-import type { NextConfig } from "next";
+import NextConfig from "next";
 
 // Set up Nextra with its configuration
 const withNextra = nextra({
@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
     /* config options here */
     reactStrictMode: true,
     cleanDistDir: true,
+    output: 'export',
+    images: {
+        unoptimized: true // mandatory, otherwise won't export
+    },
     turbopack: {
         resolveAlias: {
             // Path to your `mdx-components` file with extension
