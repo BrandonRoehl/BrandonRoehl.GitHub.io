@@ -1,17 +1,29 @@
+---
+title: Starting a blog
+date: 2017-07-22
+description:
+  Starting a blog with GitHub pages and Jekyll.
+tags:
+  - Web Development
+  - GitHub Pages
+  - Ruby
+author: Brandon Roehl
+---
+
 I am now starting a blog on my website using `Jekyll`
 
 This is hosted on [GitHub Pages](https://pages.github.com)
 
 Here are the steps that it took for me to get this working
 
-**[Gemfile](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/master/Gemfile)**
+**[Gemfile](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/jekyll/Gemfile)**
 ```ruby
 source 'https://rubygems.org'
 gem 'github-pages'
 # or
 # gem 'jekyll'
 ```
-**[_config.yml](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/master/_config.yml)**
+**[_config.yml](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/jekyll/_config.yml)**
 ```yaml
 sass:
     sass_dir: stylesheets
@@ -25,7 +37,7 @@ defaults:
     values:
       layout: "post"
 ```
-**[bower.json](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/master/bower.json)**
+**[bower.json](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/jekyll/bower.json)**
 ```json
 {
   "name": "polymer-project",
@@ -61,9 +73,9 @@ Then I built out the page with polymer using `<app-route>` and `<app-location>`
 for the normal routing
 
 For the posts in jekyll you can then loop though with the
-{% raw %}`{% for post in post %}`{% endraw %}. An example of how I did this
+`{% for post in post %}`. An example of how I did this
 is in
-[`my-blog.html`](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/master/src/my-blog.html)
+[`my-blog.html`](https://github.com/BrandonRoehl/BrandonRoehl.GitHub.io/blob/jekyll/src/my-blog.html)
 
 Now because we made the permalink in the `_config.yml` similar to the original
 files so then every `<dom-module/>` is able to have the basename of these files

@@ -1,3 +1,14 @@
+---
+title: Rails Meta Settings
+date: 2017-08-03
+description:
+  Using Rails as a hosted json settings instance with authentication.
+tags:
+  - Web Development
+  - Ruby
+author: Brandon Roehl
+---
+
 The inspiration for this comes from a CS330 class I took on programming
 languages here is the original blog post by
 [Chris Johnson](http://www.twodee.org/blog/?p=15921)

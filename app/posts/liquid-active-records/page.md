@@ -1,3 +1,14 @@
+---
+title: Liquid templates in Rails
+date: 2017-07-27
+description:
+  Allowing active record to implement liquid markup objects.
+tags:
+  - Web Development
+  - Ruby
+author: Brandon Roehl
+---
+
 For anyone that has used [liquid](http://liquidmarkup.org/) all records need to
 either need to inherit from `Liquid::Drop` or have a `to_liquid` method. A usual
 way for the `to_liquid` is just making it aliased to the `as_json` method.
@@ -117,7 +128,6 @@ Now we can allow users to create pages with liquid.
 ```ruby
 sanitize Liquid::Template.parse(@author.page).render('author' => @author)
 ```
-{% raw %}
 ```liquid
 <h1>Books by {{ author.name }}</h1>
 <ul>
@@ -146,7 +156,6 @@ sanitize Liquid::Template.parse(Books.bestseller).render('book' => Book)
     {% endfor %}
 </ul>
 ```
-{% endraw %}
 Lets just make sure that when we display out the result we use rails
 [`sanitize`](http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html#method-i-sanitize)
 so we don't expose ourselves up to html injection after being so careful to
