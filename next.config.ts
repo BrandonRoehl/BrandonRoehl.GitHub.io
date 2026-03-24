@@ -5,7 +5,8 @@ import type { NextConfig } from "next";
 const withNextra = nextra({
     // ... Add Nextra-specific options here
     defaultShowCopyCode: true,
-    readingTime: true
+    readingTime: true,
+    staticImage: true,
 })
 
 const nextConfig: NextConfig = {
@@ -14,12 +15,13 @@ const nextConfig: NextConfig = {
     cleanDistDir: true,
     output: 'export',
     images: {
-        unoptimized: true // mandatory, otherwise won't export
+        // mandatory, otherwise won't export
+        unoptimized: true,
     },
     turbopack: {
         resolveAlias: {
             // Path to your `mdx-components` file with extension
-            'next-mdx-import-source-file': './mdx-components.tsx'
+            'next-mdx-import-source-file': './mdx-components.tsx',
         }
     }
 };

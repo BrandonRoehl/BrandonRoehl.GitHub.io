@@ -6,7 +6,24 @@ import { Metadata } from 'next'
 import { ThemeSwitch } from './theme-switch'
 
 export const metadata: Metadata = {
-    title: 'Blog Example'
+    metadataBase: new URL('https://brandonroehl.org'),
+    title: {
+        default: 'Roehl',
+        template: '%s - Roehl'
+    },
+    description: "Brandon Roehl's personal website and blog.",
+    applicationName: 'Roehl',
+    generator: 'Next.js',
+    appleWebApp: {
+        title: 'Roehl'
+    },
+    twitter: {
+        site: 'https://brandonroehl.org'
+    },
+    // other: {
+    //     'msapplication-TileImage': '/ms-icon-144x144.png',
+    //     'msapplication-TileColor': '#fff'
+    // },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
