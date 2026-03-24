@@ -7,22 +7,19 @@ import { useMounted } from 'nextra/hooks'
 import { MoonIcon, SunIcon } from 'nextra/icons'
 
 export function ThemeSwitch() {
-    const { setTheme, resolvedTheme, theme, systemTheme } = useTheme()
+    const props = useTheme()
     const mounted = useMounted()
 
-    const IconToUse = mounted && resolvedTheme === 'dark' ? MoonIcon : SunIcon
+    const IconToUse = mounted && props.resolvedTheme === 'dark' ? MoonIcon : SunIcon
+    const id = (mounted ? (props.theme || props.systemTheme) : undefined) || 'light'
 
-    const id = mounted ? theme || systemTheme || 'light' : 'light'
+    const options = props.themes.map(theme => ({ id: theme, name: theme }))
     return (
         <Select
             className={cn('x:p-2')}
             title="Change theme"
-            options={[
-                { id: 'light', name: 'Light' },
-                { id: 'dark', name: 'Dark' },
-                { id: 'system', name: 'System' }
-            ]}
-            onChange={setTheme}
+            options={options}
+            onChange={props.setTheme}
             value={id}
             selectedOption={
                 <IconToUse height="12" />
