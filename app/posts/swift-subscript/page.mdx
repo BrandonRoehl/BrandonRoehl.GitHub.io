@@ -103,7 +103,7 @@ Before Swift 4 the top behaves like the bottom. After Swift 4 the value semantic
 
 So how does this work with even simpler examples?
 
-```swift
+```swift showLineNumbers
 var example: [String: Set<String>] = [:]
 example["hello", default: []].insert("world")
         
@@ -118,7 +118,7 @@ Optional(Set(["world"]))
 
 and
 
-```swift
+```swift showLineNumbers
 var example: [String: NSMutableSet] = [:]
 example["hello", default: .init()].add("world")
 
