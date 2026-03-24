@@ -1,7 +1,7 @@
 import { useMDXComponents as getBlogMDXComponents } from 'nextra-theme-blog'
 import type { MDXComponents } from 'nextra/mdx-components'
 
-const blogComponents = getBlogMDXComponents({
+const componentCustomizations: MDXComponents = {
     // Allows customizing built-in components, e.g. to add styling.
     h1: ({ children }) => (
         <h1
@@ -21,7 +21,9 @@ const blogComponents = getBlogMDXComponents({
             month: 'long',
             year: 'numeric'
         })}`,
-} satisfies MDXComponents)
+}
+
+const blogComponents = getBlogMDXComponents(componentCustomizations)
 
 // This file allows you to provide custom React components
 // to be used in MDX files. You can import and use any
