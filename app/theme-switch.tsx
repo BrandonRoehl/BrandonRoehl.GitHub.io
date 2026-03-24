@@ -7,12 +7,12 @@ import { useMounted } from 'nextra/hooks'
 import { MoonIcon, SunIcon } from 'nextra/icons'
 
 export function ThemeSwitch() {
-    const { setTheme, resolvedTheme, theme } = useTheme()
+    const { setTheme, resolvedTheme, theme, systemTheme } = useTheme()
     const mounted = useMounted()
 
     const IconToUse = mounted && resolvedTheme === 'dark' ? MoonIcon : SunIcon
 
-    const id = mounted ? (theme as keyof typeof String) : 'light'
+    const id = mounted ? theme || systemTheme || 'light' : 'light'
     return (
         <Select
             className={cn('x:p-2')}
