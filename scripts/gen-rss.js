@@ -1,19 +1,42 @@
 import { normalizePages } from 'nextra/normalize-pages'
-import { getPageMap } from 'nextra/page-map'
 import fs from 'fs'
+import fg from 'fast-glob'
+import { convertToPageMap } from 'nextra/page-map'
 
 const CONFIG = {
     title: 'My Blog',
     siteUrl: 'https://your-domain.com',
     description: 'Latest blog posts',
-    lang: 'en-us'
+    lang: 'en-us',
+    folder: '/posts'
+}
+
+async function importPageMap(route) {
+    const result = await fg(`"app/${route}/**/page.{js,jsx,jsx,tsx,md,mdx}`)
+    const filePaths = result.sort((a, b) => a.localeCompare(b))
+    return convertToPageMap({
+        filePaths,
+        locale: CONFIG.lang
+    })
+}
+
+async function getPageMap(route) {
+    let { pageMap } = await importPageMap(route);
+    const folder = pageMap.find(
+        (item) => "name" in item && item.route === CONFIG.folder
+    );
+    if (!folder) {
+        throw new Error(`Can't find pageMap for "${CONFIG.folder}" in route "${route}"`);
+    }
+    return folder.children;
 }
 
 export async function getPosts() {
     const { directories } = normalizePages({
-        list: await getPageMap('/posts'),
-        route: '/posts'
+        list: await getPageMap(CONFIG.folder),
+        route: CONFIG.folder
     })
+    console.log(directories)
     return directories
         .filter(post => post.name !== 'index')
         .sort(
