@@ -13,7 +13,10 @@ export function ThemeSwitch() {
     const IconToUse = mounted && props.resolvedTheme === 'dark' ? MoonIcon : SunIcon
     const id = (mounted ? (props.theme || props.systemTheme) : undefined) || 'light'
 
-    const options = props.themes.map(theme => ({ id: theme, name: theme }))
+    const options = props.themes.map(theme => ({
+        id: theme,
+        name: theme.charAt(0).toUpperCase() + theme.slice(1),
+    }))
     return (
         <Select
             className={cn('x:p-2')}
