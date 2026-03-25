@@ -14,10 +14,6 @@ const nextConfig: NextConfig = {
     reactStrictMode: true,
     cleanDistDir: true,
     output: 'export',
-    images: {
-        // mandatory, otherwise won't export
-        unoptimized: true,
-    },
     turbopack: {
         resolveAlias: {
             // Path to your `mdx-components` file with extension
