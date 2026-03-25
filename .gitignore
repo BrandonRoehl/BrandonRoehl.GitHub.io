@@ -20,6 +20,9 @@
 # production
 /build
 
+# pagefind
+/_pagefind/
+
 # misc
 .DS_Store
 *.pem

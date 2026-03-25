@@ -4,6 +4,7 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-blog/style.css'
 import { Metadata } from 'next'
 import { ThemeSwitch } from './theme-switch'
+import { RssIcon, MarkGithubIcon } from '@primer/octicons-react'
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://brandonroehl.org'),
@@ -42,12 +43,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
                     <Footer>
                         {new Date().getFullYear()} © Brandon Roehl.
-                        <a href="/feed.xml" style={{ float: 'right' }}>
-                            RSS
+                        <a href="/rss.xml" title="RSS feed" style={{ float: 'inline-end', padding: '0 6px' }}>
+                            <RssIcon size={16} />
+                        </a>
+                        <a href="https://github.com/BrandonRoehl" title="Github" style={{ float: 'inline-end', padding: '0 6px' }}>
+                            <MarkGithubIcon size={16} />
                         </a>
                     </Footer>
                 </Layout>
             </body>
-        </html>
+        </html >
     )
 }

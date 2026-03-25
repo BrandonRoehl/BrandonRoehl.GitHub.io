@@ -34,7 +34,7 @@ export function ThemeSwitch() {
             icon: DeviceDesktopIcon,
             name: 'System',
         }
-    ].filter(o => o.id in props.themes)
+    ].filter(o => props.themes.includes(o.id))
 
     const IconToUse = options.find(o => o.id === id)?.icon || SunIcon
 
