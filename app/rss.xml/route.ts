@@ -1,6 +1,6 @@
-import { getPosts } from '../posts/get-posts.js'
+import { getPosts } from '../posts/get-posts'
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-static';
 
 const CONFIG = {
     title: 'My Blog',
