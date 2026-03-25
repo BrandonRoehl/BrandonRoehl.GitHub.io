@@ -4,19 +4,40 @@ import cn from 'clsx'
 import { useTheme } from 'next-themes'
 import { Select } from 'nextra/components'
 import { useMounted } from 'nextra/hooks'
-import { MoonIcon, SunIcon } from 'nextra/icons'
+import { MoonIcon, SunIcon, DeviceDesktopIcon, Icon } from '@primer/octicons-react'
+import { ReactNode } from 'react'
+
+interface MenuOption {
+    id: string;
+    icon: Icon;
+    name: ReactNode;
+}
 
 export function ThemeSwitch() {
     const props = useTheme()
     const mounted = useMounted()
 
-    const IconToUse = mounted && props.resolvedTheme === 'dark' ? MoonIcon : SunIcon
     const id = (mounted ? (props.theme || props.systemTheme) : undefined) || 'light'
+    const options: MenuOption[] = [
+        {
+            id: 'light',
+            icon: SunIcon,
+            name: 'Light',
+        },
+        {
+            id: 'dark',
+            icon: MoonIcon,
+            name: 'Dark',
+        },
+        {
+            id: 'system',
+            icon: DeviceDesktopIcon,
+            name: 'System',
+        }
+    ].filter(o => o.id in props.themes)
 
-    const options = props.themes.map(theme => ({
-        id: theme,
-        name: theme.charAt(0).toUpperCase() + theme.slice(1),
-    }))
+    const IconToUse = options.find(o => o.id === id)?.icon || SunIcon
+
     return (
         <Select
             className={cn('x:p-2')}
@@ -25,7 +46,7 @@ export function ThemeSwitch() {
             onChange={props.setTheme}
             value={id}
             selectedOption={
-                <IconToUse height="12" />
+                <IconToUse size={12} />
             }
         />
     )

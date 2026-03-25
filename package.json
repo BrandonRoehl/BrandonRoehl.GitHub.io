@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@primer/octicons-react": "^19.23.1",
     "next": "^16.2.1",
     "nextra": "^4.6.1",
     "nextra-theme-blog": "^4.6.1",
