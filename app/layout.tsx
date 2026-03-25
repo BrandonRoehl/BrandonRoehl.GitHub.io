@@ -4,7 +4,7 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-blog/style.css'
 import { Metadata } from 'next'
 import { ThemeSwitch } from './theme-switch'
-import { RssIcon, MarkGithubIcon } from '@primer/octicons-react'
+import { RssIcon, MarkGithubIcon, MailIcon } from '@primer/octicons-react'
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://brandonroehl.org'),
@@ -48,6 +48,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                         </a>
                         <a href="https://github.com/BrandonRoehl" title="Github" style={{ float: 'inline-end', padding: '0 6px' }}>
                             <MarkGithubIcon size={16} />
+                        </a>
+                        <a href="mailto:me@brandonroehl.org" title="me@brandonroehl.org" style={{ float: 'inline-end', padding: '0 6px' }}>
+                            <MailIcon size={16} />
                         </a>
                     </Footer>
                 </Layout>
