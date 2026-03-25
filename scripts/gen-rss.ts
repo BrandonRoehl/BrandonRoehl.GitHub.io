@@ -2,6 +2,7 @@ import { normalizePages } from 'nextra/normalize-pages'
 import fs from 'fs'
 import fg from 'fast-glob'
 import { convertToPageMap } from 'nextra/page-map'
+import { PageMapItem } from 'nextra'
 
 const CONFIG = {
     title: 'My Blog',
@@ -11,7 +12,7 @@ const CONFIG = {
     folder: '/posts'
 }
 
-async function importPageMap(route) {
+async function importPageMap(route: string) {
     const result = await fg(`"app/${route}/**/page.{js,jsx,jsx,tsx,md,mdx}`)
     const filePaths = result.sort((a, b) => a.localeCompare(b))
     return convertToPageMap({
@@ -20,7 +21,7 @@ async function importPageMap(route) {
     })
 }
 
-async function getPageMap(route) {
+async function getPageMap(route: string): Promise<PageMapItem[]> {
     let { pageMap } = await importPageMap(route);
     const folder = pageMap.find(
         (item) => "name" in item && item.route === CONFIG.folder
