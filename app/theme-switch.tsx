@@ -17,7 +17,7 @@ export function ThemeSwitch() {
     const props = useTheme()
     const mounted = useMounted()
 
-    const id = (mounted ? props.resolvedTheme : undefined) || 'light'
+    const id = (mounted ? props.theme : undefined) || 'light'
     const options: MenuOption[] = [
         {
             id: 'light',
