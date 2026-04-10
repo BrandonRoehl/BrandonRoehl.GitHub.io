@@ -12,7 +12,7 @@
   "dependencies": {
     "@primer/octicons-react": "^19.23.1",
     "feed": "^5.2.0",
-    "next": "^16.2.1",
+    "next": "^16.2.3",
     "nextra": "^4.6.1",
     "nextra-theme-blog": "^4.6.1",
     "react": "^18.3.1",
