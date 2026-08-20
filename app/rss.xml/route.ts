@@ -6,7 +6,7 @@ export const dynamic = 'force-static';
 
 const CONFIG = {
     title: "Roeh's blog",
-    siteUrl: 'https://brandonroehl.org/',
+    siteUrl: new URL('https://brandonroehl.org/'),
     description: "Brandon Roehl's personal blog.",
     lang: 'en-us',
     author: {
@@ -21,12 +21,12 @@ export async function GET() {
     const feed = new Feed({
         title: CONFIG.title,
         description: CONFIG.description,
-        id: CONFIG.siteUrl,
-        link: CONFIG.siteUrl,
+        id: CONFIG.siteUrl.toString(),
+        link: CONFIG.siteUrl.toString(),
         // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
         language: CONFIG.lang,
-        image: CONFIG.siteUrl + 'icon.svg',
-        favicon: CONFIG.siteUrl + 'icon.svg',
+        image: new URL('icon.svg', CONFIG.siteUrl).toString(),
+        favicon: new URL('icon.svg', CONFIG.siteUrl).toString(),
         copyright: `All rights reserved ${new Date().getFullYear()}, Brandon Roehl`,
         // optional, default = today
         updated: new Date(),
@@ -41,7 +41,7 @@ export async function GET() {
         feed.addItem({
             title: `${post.title}`,
             id: post.name,
-            link: CONFIG.siteUrl + post.route,
+            link: new URL(post.route, CONFIG.siteUrl).toString(),
             description: post.frontMatter.description,
             author: post.frontMatter.author ? [{ name: post.frontMatter.author }] : undefined,
             date: new Date(post.frontMatter.date),
